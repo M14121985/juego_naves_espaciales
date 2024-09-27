@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: 'Arial', sans-serif;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    overflow: hidden;
+}
+
+.ship, .enemy {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+
+.ship {
+    background: linear-gradient(45deg, #00f, #0ff);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px #0ff;
+}
+
+.enemy {
+    background: linear-gradient(45deg, #f00, #ff0);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px #ff0;
+}
+
+.bullet, .missile {
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    background: red;
+    border: 1px solid yellow;
+    box-shadow: 0 0 5px yellow;
+}
+
+.missile {
+    width: 10px;
+    height: 20px;
+    background: blue;
+    border: 1px solid white;
+    box-shadow: 0 0 5px white;
+}
+
+.explosion {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,0,0,1) 50%, rgba(0,0,0,0) 100%);
+    animation: explode 0.5s ease-out;
+}
+
+@keyframes explode {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+#score, #lives {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-size: 20px;
+}
+
+#lives {
+    left: auto;
+    right: 10px;
+}
+
+#pauseMenu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border: 2px solid white;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
