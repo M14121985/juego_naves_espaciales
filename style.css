@@ -24,6 +24,7 @@ body {
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     border: 2px solid #fff;
     box-shadow: 0 0 10px #0ff;
+    animation: ship-thrust 1s infinite alternate;
 }
 
 .enemy {
@@ -31,6 +32,25 @@ body {
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     border: 2px solid #fff;
     box-shadow: 0 0 10px #ff0;
+    animation: enemy-thrust 1s infinite alternate;
+}
+
+@keyframes ship-thrust {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes enemy-thrust {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-5px);
+    }
 }
 
 .bullet, .missile {
@@ -50,11 +70,12 @@ body {
     box-shadow: 0 0 5px white;
 }
 
+/* Efecto de explosión mejorado */
 .explosion {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,0,0,1) 50%, rgba(0,0,0,0) 100%);
-    animation: explode 0.5s ease-out;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,69,0,1) 50%, rgba(255,0,0,1) 75%, rgba(0,0,0,0) 100%);
+    animation: explode 0.7s ease-out;
 }
 
 @keyframes explode {
