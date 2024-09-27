@@ -12,6 +12,7 @@ let shipDY = 0;
 let score = 0;
 let lives = 10;
 let isPaused = false;
+let shootingInterval;
 
 const bullets = [];
 const missiles = [];
@@ -193,7 +194,7 @@ function keyDown(e) {
     if (e.key === 'ArrowLeft') shipDX = -shipSpeed;
     if (e.key === 'ArrowUp') shipDY = -shipSpeed;
     if (e.key === 'ArrowDown') shipDY = shipSpeed;
-    if (e.key === ' ') createBullet();
+    if (e.key === ' ') startShooting(); // Iniciar disparo continuo de la ametralladora
     if (e.key === 'm') createMissile();
     if (e.key === 'p') togglePause();
 }
@@ -201,6 +202,46 @@ function keyDown(e) {
 function keyUp(e) {
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') shipDX = 0;
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') shipDY = 0;
+    if (e.key === ' ') stopShooting(); // Detener disparo continuo de la ametralladora
+}
+
+function touchStart(e) {
+    const touch = e.touches[0];
+    const touchX = touch.clientX;
+    const touchY = touch.clientY;
+
+    if (touchX > shipX + ship.offsetWidth / 2) {
+        shipDX = shipSpeed;
+    } else {
+        shipDX = -shipSpeed;
+    }
+
+    if (touchY > shipY + ship.offsetHeight / 2) {
+        shipDY = shipSpeed;
+    } else {
+        shipDY = -shipSpeed;
+    }
+
+    // Iniciar disparo continuo de la ametralladora
+    if (touchY < shipY) {
+        startShooting();
+    }
+}
+
+function touchEnd(e) {
+    shipDX = 0;
+    shipDY = 0;
+    stopShooting(); // Detener disparo continuo de la ametralladora
+}
+
+function touchMove(e) {
+    const touch = e.touches[0];
+    const touchX = touch.clientX;
+    const touchY = touch.clientY;
+
+    if (touchY > shipY + ship.offsetHeight) {
+        createMissile(); // Disparar misil
+    }
 }
 
 function togglePause() {
@@ -234,6 +275,9 @@ function resetGame() {
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+document.addEventListener('touchstart', touchStart);
+document.addEventListener('touchend', touchEnd);
+document.addEventListener('touchmove', touchMove);
 
 createStars();
 setInterval(createEnemy, 1000);
